@@ -1,8 +1,6 @@
 import json
-import pyarrow as pa
-import pyarrow.csv as csv
 
-from . import headerops
+from pairtools.lib import headerops
 
 
 

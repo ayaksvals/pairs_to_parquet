@@ -3,11 +3,11 @@
 import io
 import sys
 import click
-import subprocess
-import shutil
-import warnings
 
-from ..lib import fileio, pairsam_format, headerops, duckdb_utils, json_transform, csv_parquet_converter
+
+from pairtools.lib import fileio, pairsam_format, headerops
+
+from ..lib import  duckdb_utils, json_transform, csv_parquet_converter
 from . import cli, common_io_options
 
 
@@ -125,7 +125,7 @@ def sort_duckdb(
     input is decompressed by bgzip or lz4c, correspondingly. By default, the
     input is read as text from stdin.
     """
-    sort_duckdb_py(
+    sort_py(
         pairs_path,
         output,
         c1,
@@ -143,7 +143,7 @@ def sort_duckdb(
 
 
 
-def sort_duckdb_py(input_path,
+def sort_py(input_path,
     output_path,
     c1,
     c2,
@@ -156,8 +156,6 @@ def sort_duckdb_py(input_path,
     memory,
     compress_program,
     **kwargs):
-
-    print("sort duckdb")
 
     if input_path.endswith("gz") or input_path.endswith("pairs"):
         instream = fileio.auto_open(
@@ -185,4 +183,4 @@ def sort_duckdb_py(input_path,
     csv_parquet_converter.duckdb_read_query_write(input_path, output_path, query, tmpdir, memory, numb_threads=nproc, compress_program=compress_program)
     
 if __name__ == "__main__":
-    sort_duckdb()
+    sort()

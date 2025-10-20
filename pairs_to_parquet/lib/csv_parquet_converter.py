@@ -13,10 +13,11 @@ import warnings
 import pyarrow as pa
 import pyarrow.parquet as pq
 import pyarrow.csv as csv
-from typing import Optional
 
 
-from . import duckdb_utils, fileio, json_transform, pairsam_format, headerops
+from pairtools.lib import fileio, headerops
+
+from . import duckdb_utils, json_transform, header_metadata
 
 
 UTIL_NAME = "csv_parquet_converter"
@@ -41,7 +42,7 @@ def validate_output_path(output_path):
 
 # cant move it to duckdb_utils due to Circular import issue with headerops
 def header_to_kv_metadata(header):
-    field_names = headerops.extract_field_names(header)
+    field_names = header_metadata.extract_field_names(header)
     header_json_dict = json_transform.header_to_json_dict(header, field_names)
     kv_metadata = json_transform.json_dict_to_json_str(header_json_dict)
     return kv_metadata
@@ -50,7 +51,7 @@ def header_to_kv_metadata(header):
 def duckdb_kv_metadata_to_header(parquet_input_path, con=None):
     metadata = duckdb_utils.extract_duckdb_metadata(parquet_input_path, con)
     metadata_dict = duckdb_utils.decode_parquet_metadata_duckdb_as_dict(metadata)
-    header = headerops.metadata_dict_to_header_list(metadata_dict) 
+    header = header_metadata.metadata_dict_to_header_list(metadata_dict) 
     return header
 
 
@@ -155,7 +156,7 @@ def csv_parquet_converter(
 
     # DuckDB: query csv
     chromsizes = headerops.extract_chromsizes(new_header)
-    chromosom_field = headerops.extract_chromosome_field(chromsizes)
+    chromosom_field = header_metadata.extract_chromosome_field(chromsizes)
     con = duckdb_utils.setup_duckdb_types(con, chromosom_field)
 
     column_names = headerops.extract_column_names(new_header)
@@ -251,7 +252,7 @@ def duckdb_read_query_write(
         column_types = duckdb_utils.classify_column_types_by_name(column_names)
 
         chromsizes = headerops.extract_chromsizes(new_header)
-        chromosom_field = headerops.extract_chromosome_field(chromsizes)
+        chromosom_field = header_metadata.extract_chromosome_field(chromsizes)
 
         con = duckdb_utils.setup_duckdb_types(con, chromosom_field)
 
@@ -346,7 +347,7 @@ def csv_sort_parquet(
     
     # DuckDB: ENUM types
     chromsizes = headerops.extract_chromsizes(new_header)
-    chromosom_field = headerops.extract_chromosome_field(chromsizes)
+    chromosom_field = header_metadata.extract_chromosome_field(chromsizes)
     header_length = len(old_header)
     column_names = headerops.extract_column_names(new_header)
 
@@ -389,7 +390,7 @@ def parquet_sort_parquet(
     
     # DuckDB: ENUM types
     chromsizes = headerops.extract_chromsizes(new_header)
-    chromosom_field = headerops.extract_chromosome_field(chromsizes)
+    chromosom_field = header_metadata.extract_chromosome_field(chromsizes)
     
     # Setup DuckDB connection
     con = duckdb_utils.setup_duckdb_connection(temp_directory, memory_limit, enable_progress_bar, enable_profiling, numb_threads)
@@ -432,18 +433,18 @@ def parquet_sort_csv(
     metadata = duckdb_utils.extract_duckdb_metadata(input_path_parquet)
     metadata_dict=duckdb_utils.decode_parquet_metadata_duckdb_as_dict(metadata)
 
-    header=headerops.metadata_dict_to_header_list(metadata_dict) 
+    header=header_metadata.metadata_dict_to_header_list(metadata_dict) 
     header_pg = headerops.append_new_pg(header, ID=UTIL_NAME, PN=UTIL_NAME)
     new_header = header_pg
     
     # DuckDB: metadata
-    field_names = headerops.extract_field_names(new_header)
+    field_names = header_metadata.extract_field_names(new_header)
     header_json_dict = json_transform.header_to_json_dict(new_header, field_names)
     kv_metadata = json_transform.json_dict_to_json_str(header_json_dict)
     
     # DuckDB: ENUM types
     chromsizes = headerops.extract_chromsizes(new_header) 
-    chromosom_field = headerops.extract_chromosome_field(chromsizes)
+    chromosom_field = header_metadata.extract_chromosome_field(chromsizes)
     header_length = len(new_header)
     column_names = headerops.extract_column_names(new_header)
 

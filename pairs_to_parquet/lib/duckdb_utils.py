@@ -4,8 +4,9 @@ import json
 import pyarrow as pa
 import pyarrow.parquet as pq
 import pyarrow.csv as csv
+from itertools import product
 
-from . import pairsam_format
+from pairtools.lib import pairsam_format
 from . import json_transform
 
 # MAYBE TO RENAME TO PARQUET UTILS WILL BE MORE STRAIGHTFORWARD
@@ -66,7 +67,10 @@ def setup_duckdb_types(con, chromosom_field, reads_type_enum=False):
     # Create new ENUM types
     con.execute(f"CREATE TYPE CHROM_TYPE AS ENUM {chromosom_field};")
     con.execute("CREATE TYPE STRAND_TYPE AS ENUM ('+', '-');")
-    con.execute(f"CREATE TYPE ALIGNMENT_TYPE AS ENUM {pairsam_format.ALIGNMENT_TYPE};")
+
+    # all the possible alignments we can get 
+    ALIGNMENT_TYPE = tuple(a + b for a, b in product(["U", "u", "m", "M", "R", "N"], repeat=2)) + ("DD", "WW", "XX", "!")
+    con.execute(f"CREATE TYPE ALIGNMENT_TYPE AS ENUM {ALIGNMENT_TYPE};")
 
     if reads_type_enum:
         con.execute("CREATE TYPE READS_TYPE AS ENUM ('.');") 

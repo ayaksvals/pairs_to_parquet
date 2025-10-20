@@ -27,7 +27,7 @@ def _read(*parts, **kwargs):
 def get_version():
     version = re.search(
         r'^__version__\s*=\s*[\'"]([^\'"]*)[\'"]',
-        _read("pairtools", "__init__.py"),
+        _read("pairs_to_parquet", "__init__.py"),
         re.MULTILINE,
     ).group(1)
     return version
@@ -36,13 +36,13 @@ def get_version():
 def get_ext_modules():
     ext = ".pyx"
     src_files = glob.glob(
-        #os.path.join(os.path.dirname(__file__), "pairtools", "lib", "*" + ext)
-        os.path.join("pairtools", "lib", "*" + ext)
+        #os.path.join(os.path.dirname(__file__), "pairs_to_parquet", "lib", "*" + ext)
+        os.path.join("pairs_to_parquet", "lib", "*" + ext)
     )
 
     ext_modules = []
     for src_file in src_files:
-        name = "pairtools.lib." + os.path.splitext(os.path.basename(src_file))[0]
+        name = "pairs_to_parquet.lib." + os.path.splitext(os.path.basename(src_file))[0]
   
         if 'pysam' in name:
             import pysam
@@ -103,7 +103,7 @@ setup(
     zip_safe=False,
     # entry_points={
     #     "console_scripts": [
-    #         "pairtools = pairtools.cli:cli",
+    #         "pairs_to_parquet = pairs_to_parquet.cli:cli",
     #     ]
     # },
     packages=find_packages(),

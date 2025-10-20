@@ -1,5 +1,5 @@
 """
-pairtools
+pairs_to_parquet
 ~~~~~~~~~
 
 CLI tools to process mapped Hi-C data
@@ -10,6 +10,6 @@ CLI tools to process mapped Hi-C data
 
 """
 
-__version__ = "1.1.3"
+__version__ = "1.0.0"
 
 from . import lib
