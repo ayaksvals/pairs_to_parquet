@@ -1,6 +1,6 @@
 [project]
 name = "pairs_to_parquet"
-dynamic = ['version',]
+version = "0.1.0"
 
 dependencies = [
     'click>=6.6',
@@ -54,11 +54,11 @@ doc = [
 
 
 [project.urls]
-Homepage = "https://github.com/open2c/pairtools"
+Homepage = "https://github.com/ayaksvals/pairs_to_parquet"
 Documentation = "https://pairtools.readthedocs.io/en/latest/"
-Repository = "https://github.com/open2c/pairtools.git"
-Issues = "https://github.com/open2c/pairtools/issues"
-Changelog = "https://github.com/open2c/pairtools/blob/master/CHANGES.md"
+Repository = "https://github.com/ayaksvals/pairs_to_parquet.git"
+Issues = "https://github.com/ayaksvals/pairs_to_parquet/issues"
+Changelog = "https://github.com/ayaksvals/pairs_to_parquet/issues/blob/master/CHANGES.md"
 
 
 [project.scripts]
@@ -66,9 +66,5 @@ pairs_to_parquet = "pairs_to_parquet.cli:cli"
 
 
 [build-system]
-requires = [
-    "setuptools", 
-    "cython", 
-    "numpy", 
-    "pysam"]
+requires = ["setuptools"]
 build-backend = "setuptools.build_meta"
