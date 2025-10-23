@@ -186,5 +186,7 @@ def common_io_options(func):
 
 
 from . import (
-    sort
+    sort,
+    csv_to_parquet,
+    parquet_to_csv
 )

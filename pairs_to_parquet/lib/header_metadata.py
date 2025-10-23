@@ -24,9 +24,9 @@ def extract_field_names(header):
     return list(field_names)
 
 
-def extract_chromosome_field(chromsizes):
+def extract_sorted_chromosome_field(chromsizes):
     """
-    Extract chromosomes from chromsizes dict
+    Extract chromosomes from chromsizes dict, sort them in lexicographic order and return as a tuple
 
     Parameters
     -------
@@ -36,7 +36,7 @@ def extract_chromosome_field(chromsizes):
     -------
     tuple of chromosomes: ('chr1', 'chr2', 'chr3'...)
     """
-    return tuple(chromsizes.keys())
+    return tuple(sorted(chromsizes.keys()))
 
 
 def metadata_dict_to_header_list(metadata_dict):

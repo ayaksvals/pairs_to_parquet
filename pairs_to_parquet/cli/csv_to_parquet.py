@@ -14,13 +14,13 @@ from . import cli, common_io_options
 
 
 @cli.command()
-@click.argument("pairs_path", type=str, required=False)
+@click.argument("input_path", type=str, required=False)
 @click.option(
     "-o",
     "--output",
     type=str,
     default="",
-    help="output pairs file."
+    help="output pairs or parquet file."
     " If the path ends with .gz or .lz4, the output is compressed by bgzip "
     "or lz4, correspondingly.",
 )
@@ -100,8 +100,8 @@ from . import cli, common_io_options
     "otherwise.",
 )
 @common_io_options
-def sort(
-    pairs_path,
+def csv_to_parquet(
+    input_path,
     output,
     c1,
     c2,
@@ -115,17 +115,11 @@ def sort(
     compress_program,
     **kwargs,
 ):
-    """Sort a .pairs/.pairsam/.parquet file.
-
-    Sort pairs in the lexicographic order along chrom1 and chrom2, in the
-    numeric order along pos1 and pos2 and in the lexicographic order along
-    pair_type.
-
-    INPUT_PATH : input .pairs/.pairsam/.parquet file. If the path ends with .gz or .lz4, the
-    input is decompressed by bgzip or lz4c, correspondingly
+    """Convert /.pairs.gz or /.pairs    to    /.parquet file format. 
+    The metadata in the resulting file will be sored using key-value metadata
     """
-    sort_py(
-        pairs_path,
+    csv_to_parquet_py(
+        input_path,
         output,
         c1,
         c2,
@@ -142,7 +136,7 @@ def sort(
 
 
 
-def sort_py(input_path,
+def csv_to_parquet_py(input_path,
     output_path,
     c1,
     c2,
@@ -156,30 +150,9 @@ def sort_py(input_path,
     compress_program,
     **kwargs):
 
-    if input_path.endswith("gz") or input_path.endswith("pairs"):
-        instream = fileio.auto_open(
-            input_path,
-            mode="r",
-            nproc=kwargs.get("nproc_in", 1),
-            command=kwargs.get("cmd_in", None),
-        )
+    query=None
 
-        header, body_stream = headerops.get_header(instream)
-        
-        if instream != sys.stdin:
-            instream.close()
-
-
-    if input_path.endswith("parquet") or  input_path.endswith("pq"):
-        header=duckdb_kv_metadata_to_header(input_path, con)
-        
-
-    column_names = headerops.extract_column_names(header)
-    user_columns_to_sort = [c1, c2, p1, p2, pt] + list(extra_col)
-    sort_keys=csv_parquet_converter.resolve_keys(user_columns_to_sort, column_names)
-    query=duckdb_utils.sort_query(sort_keys)
-
-    csv_parquet_converter.duckdb_read_query_write(input_path, output_path, query, tmpdir, memory, numb_threads=nproc, compress_program=compress_program, UTIL_NAME="pairs_to_parquet_sort")
+    csv_parquet_converter.duckdb_read_query_write(input_path, output_path, query, tmpdir, memory, numb_threads=nproc, compress_program=compress_program, UTIL_NAME="pairs_to_parquet_csv_to_parquet")
     
 if __name__ == "__main__":
-    sort()
+    csv_to_parquet()

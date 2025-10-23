@@ -7,7 +7,7 @@ import pyarrow.csv as csv
 from itertools import product
 
 from pairtools.lib import pairsam_format
-from . import json_transform
+from . import json_transform, header_metadata
 
 # MAYBE TO RENAME TO PARQUET UTILS WILL BE MORE STRAIGHTFORWARD
 
@@ -159,6 +159,20 @@ def decode_parquet_metadata_duckdb_as_dict(metadata):
     return metadata_dict
 
 
+# cant move it to duckdb_utils due to Circular import issue with headerops
+def header_to_kv_metadata(header):
+    field_names = header_metadata.extract_field_names(header)
+    header_json_dict = json_transform.header_to_json_dict(header, field_names)
+    kv_metadata = json_transform.json_dict_to_json_str(header_json_dict)
+    return kv_metadata
+
+# cant move it to duckdb_utils due to Circular import issue with headerops
+def duckdb_kv_metadata_to_header(parquet_input_path, con=None):
+    metadata = extract_duckdb_metadata(parquet_input_path, con)
+    metadata_dict = decode_parquet_metadata_duckdb_as_dict(metadata)
+    header = header_metadata.metadata_dict_to_header_list(metadata_dict) 
+    return header
+
 
 def parquet_file_iterator(parquet_file_path):
     """
@@ -206,14 +220,14 @@ def write_parquet_to_csv(parquet_iterator, sink):
     ----------
     
     """
-    
-    first_batch_written = False
+    # hard-coded tab separator to follow the DCIC pairs standard
+    write_options = csv.WriteOptions(
+    include_header=False,
+    delimiter="\t",     
+    quoting_style="none" 
+)
     for batch in parquet_iterator:
-        options = csv.WriteOptions(include_header=not first_batch_written)
-        csv.write_csv(batch, sink, write_options=options)
-        first_batch_written = True
-
-
+        csv.write_csv(batch, sink, write_options=write_options)
 
 def sort_query(columns_to_sort):
     query=f""" ORDER BY """ +", ".join(columns_to_sort)
