@@ -13,7 +13,7 @@ requires-python = ">=3.9"
 
 description = "Convert and process 3D contact (.pairs) files to Parquet (DuckDB version)"
 authors = [
-  {name = "Open2C", email = "open.chromosome.collective@gmail.com"},
+  {name = "Ayaksvals", email = "ayaksvals@gmail.com"},
 ]
 license = {text = "MIT License"}
 keywords = ["genomics", "bioinformatics", "Hi-C", "contact", "chromosome", "parquet", "column based", "DuckDB"]
