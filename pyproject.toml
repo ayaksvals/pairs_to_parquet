@@ -56,7 +56,7 @@ doc = [
 
 [project.urls]
 Homepage = "https://github.com/ayaksvals/pairs_to_parquet"
-Documentation = "https://pairtools.readthedocs.io/en/latest/"
+Documentation = "https://pairs-to-parquet.readthedocs.io/en/latest/"
 Repository = "https://github.com/ayaksvals/pairs_to_parquet.git"
 Issues = "https://github.com/ayaksvals/pairs_to_parquet/issues"
 Changelog = "https://github.com/ayaksvals/pairs_to_parquet/issues/blob/master/CHANGES.md"
