@@ -43,12 +43,13 @@ test = [
 ]
 
 doc = [
-  'sphinx-click',
-  'ipython',
-  'nbsphinx',
-  'Sphinx>=7.0',
-  'sphinx_rtd_theme',
-  'docutils>0.16',
+  "sphinx-click",
+  "ipython",
+  "nbsphinx",
+  "Sphinx>=7.0",
+  "sphinx_rtd_theme",
+  "docutils>0.16",
+  "myst-parser"
 ]
 
 
