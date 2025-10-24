@@ -14,6 +14,7 @@ The main purspose of this extention is to use the row groups of .parquet file fo
 - improve the I/O performance
 
 
+
 ## Data formats
 
 There are 2 main file formats, which are used by our converter & processor: 
