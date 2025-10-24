@@ -6,11 +6,6 @@
 pairs_to_parquet documentation
 ==============================
 
-Add your content using ``reStructuredText`` syntax. See the
-`reStructuredText <https://www.sphinx-doc.org/en/master/usage/restructuredtext/index.html>`_
-documentation for details.
-
-
 .. toctree::
    :maxdepth: 2
    :caption: Contents:
@@ -21,5 +16,11 @@ documentation for details.
    :maxdepth: 2
    :caption: Tutorials
 
-   tutorials/csv_to_parquet.ipynb
+   tutorials/sort.ipynb
 
+Indices and tables
+==================
+
+* :ref:`genindex`
+* :ref:`modindex`
+* :ref:`search`

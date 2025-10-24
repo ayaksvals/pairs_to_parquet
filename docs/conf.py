@@ -18,7 +18,8 @@ extensions = [
     'sphinx.ext.autodoc',
     'sphinx.ext.napoleon',   # for Google-style docstrings
     'sphinx.ext.viewcode',
-    'myst_parser'
+    'myst_parser',
+    'nbsphinx'
 ]
 
 templates_path = ['_templates']
