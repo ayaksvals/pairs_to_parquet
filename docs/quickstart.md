@@ -14,4 +14,3 @@ Then, compile and install pairs_to_parquet in [development mode](https://setupto
 $ cd pairs_to_parquet
 $ pip install -e ./
 ```
-
