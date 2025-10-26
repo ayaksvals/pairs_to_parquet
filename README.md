@@ -59,13 +59,14 @@ $ pip install -e .
 ## Why to use `.parquet` extention for sorting (and many more future processing tools)?
 If we use the same 2.4 GB file, 35 GB of memory, 4 threads:
 
-| Tool, input & output formats          | Memory (2.4GB)| real time | user time | sys time  |
-|-------------------------------------------------------|-----------|-----------|-----------|
-| Pairtools sort                        |     2.3GB     | 10min 10s | 20min 23s | 3min 14s  |
-| pairs_to_parquet csv-parquet sort     |     2.5GB     | 2min  24s | 6min  56s | 0min 47s  | 5x times faster in real time, 3x times faster in user time
-| pairs_to_parquet parquet-parquet sort |     2.6GB     | 2min  33s | 6min  18s | 2m   6s   | also a major speed up
-| pairs_to_parquet csv-csv sort         |     2.2GB     | 4mim  39s | 15min 55s | 0min 53s  | worse, that first 2; better, than pairtools sort; better compression
-| pairs_to_parquet parquet-csv sort     |     2.6GB     | 5min  15s | 14min 10s | 1m   56s  | worse, that first 2, but still better, than pairtools sort
+
+| Tool, input & output formats          | Memory (2.4GB)| real time | user time | sys time  |                              Comments                                 |
+|-------------------------------------------------------|-----------|-----------|-----------|-----------------------------------------------------------------------|
+| Pairtools sort                        |     2.3GB     | 10min 10s | 20min 23s | 3min 14s  |                                                                       |
+| pairs_to_parquet csv-parquet sort     |     2.5GB     | 2min  24s | 6min  56s | 0min 47s  | 5x times faster in real time, 3x times faster in user time            |
+| pairs_to_parquet parquet-parquet sort |     2.6GB     | 2min  33s | 6min  18s | 2m   6s   | also a major speed up                                                 |
+| pairs_to_parquet csv-csv sort         |     2.2GB     | 4mim  39s | 15min 55s | 0min 53s  | worse, that first 2; better, than pairtools sort; better compression  |
+| pairs_to_parquet parquet-csv sort     |     2.6GB     | 5min  15s | 14min 10s | 1m   56s  | worse, that first 2, but still better, than pairtools sort            |
 
 
 So pairs_to_parquet with any input and output format will outperform pairtools sort on csv. Here csv-parquet and parquet-parquet show the best results. 
