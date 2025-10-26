@@ -159,14 +159,14 @@ def decode_parquet_metadata_duckdb_as_dict(metadata):
     return metadata_dict
 
 
-# cant move it to duckdb_utils due to Circular import issue with headerops
+
 def header_to_kv_metadata(header):
     field_names = header_metadata.extract_field_names(header)
     header_json_dict = json_transform.header_to_json_dict(header, field_names)
     kv_metadata = json_transform.json_dict_to_json_str(header_json_dict)
     return kv_metadata
 
-# cant move it to duckdb_utils due to Circular import issue with headerops
+
 def duckdb_kv_metadata_to_header(parquet_input_path, con=None):
     metadata = extract_duckdb_metadata(parquet_input_path, con)
     metadata_dict = decode_parquet_metadata_duckdb_as_dict(metadata)

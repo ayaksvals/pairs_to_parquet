@@ -171,7 +171,7 @@ def sort_py(input_path,
 
 
     if input_path.endswith("parquet") or  input_path.endswith("pq"):
-        header=duckdb_kv_metadata_to_header(input_path, con)
+        header=duckdb_utils.duckdb_kv_metadata_to_header(input_path)
         
 
     column_names = headerops.extract_column_names(header)

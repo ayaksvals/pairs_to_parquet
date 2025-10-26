@@ -25,50 +25,6 @@ from . import cli, common_io_options
     "or lz4, correspondingly.",
 )
 @click.option(
-    "--c1",
-    type=str,
-    default=pairsam_format.COLUMNS_PAIRS[1],
-    help=f"Chrom 1 column; default {pairsam_format.COLUMNS_PAIRS[1]}"
-    "[input format option]",
-)
-@click.option(
-    "--c2",
-    type=str,
-    default=pairsam_format.COLUMNS_PAIRS[3],
-    help=f"Chrom 2 column; default {pairsam_format.COLUMNS_PAIRS[3]}"
-    "[input format option]",
-)
-@click.option(
-    "--p1",
-    type=str,
-    default=pairsam_format.COLUMNS_PAIRS[2],
-    help=f"Position 1 column; default {pairsam_format.COLUMNS_PAIRS[2]}"
-    "[input format option]",
-)
-@click.option(
-    "--p2",
-    type=str,
-    default=pairsam_format.COLUMNS_PAIRS[4],
-    help=f"Position 2 column; default {pairsam_format.COLUMNS_PAIRS[4]}"
-    "[input format option]",
-)
-@click.option(
-    "--pt",
-    type=str,
-    default=pairsam_format.COLUMNS_PAIRS[7],
-    help=f"Pair type column; default {pairsam_format.COLUMNS_PAIRS[7]}"
-    "[input format option]",
-)
-@click.option(
-    "--extra-col",
-    nargs=1,
-    type=str,
-    multiple=True,
-    help="Extra column (name or numerical index) that is also used for sorting."
-    "The option can be provided multiple times."
-    'Example: --extra-col "phase1" --extra-col "phase2". [output format option]',
-)
-@click.option(
     "--nproc",
     type=int,
     default=8,
@@ -103,12 +59,6 @@ from . import cli, common_io_options
 def csv_to_parquet(
     input_path,
     output,
-    c1,
-    c2,
-    p1,
-    p2,
-    pt,
-    extra_col,
     nproc,
     tmpdir,
     memory,
@@ -121,12 +71,6 @@ def csv_to_parquet(
     csv_to_parquet_py(
         input_path,
         output,
-        c1,
-        c2,
-        p1,
-        p2,
-        pt,
-        extra_col,
         nproc,
         tmpdir,
         memory,
@@ -138,12 +82,6 @@ def csv_to_parquet(
 
 def csv_to_parquet_py(input_path,
     output_path,
-    c1,
-    c2,
-    p1,
-    p2,
-    pt,
-    extra_col,
     nproc,
     tmpdir,
     memory,
