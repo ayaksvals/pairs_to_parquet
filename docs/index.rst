@@ -16,6 +16,6 @@ pairs_to_parquet documentation
    :maxdepth: 2
    :caption: Tutorials
 
-   tutorials/sort.ipynb
+   tutorials/sort_tutorial.ipynb
    tutorials/pairs_to_parquet.ipynb
    tutorials/parquet_to_pairs.ipynb
