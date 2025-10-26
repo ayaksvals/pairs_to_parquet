@@ -33,3 +33,6 @@ language = 'en'
 
 html_theme = 'sphinx_rtd_theme'
 html_static_path = ['_static']
+
+nb_execution_mode = "off"
+nbsphinx_execute = 'never'
