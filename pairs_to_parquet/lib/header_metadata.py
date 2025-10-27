@@ -1,5 +1,3 @@
-
-
 def extract_field_names(header):
     """
     Extract unique header types from a list of strings that start with '#' or '##'.

@@ -1,4 +1,5 @@
 import json
+import logging
 
 from pairtools.lib import headerops
 

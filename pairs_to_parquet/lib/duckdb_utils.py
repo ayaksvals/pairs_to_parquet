@@ -206,7 +206,6 @@ def duckdb_query_iterator(con, query):
     for batch in con.execute(query).fetch_record_batch():
         yield pa.Table.from_batches([batch])
 
-
 def write_parquet_to_csv(parquet_iterator, sink):
     """
     Writes data from a Parquet iterator to a CSV file (or other writable sink) in batches.
