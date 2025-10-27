@@ -1,5 +1,7 @@
 # pairs_to_parquet
-[![Documentation Status](https://pairs-to-parquet.readthedocs.io/en/latest/)](https://pairs-to-parquet.readthedocs.io/en/latest/)
+
+[![Documentation Status](https://readthedocs.org/projects/pairs_to_parquet/badge/?version=latest)](https://pairs-to-parquet.readthedocs.io/en/latest/)
+
 [![Join the chat on Slack](https://img.shields.io/badge/chat-slack-%233F0F3F?logo=slack)](https://bit.ly/2UaOpAe)
 
 
