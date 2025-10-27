@@ -25,7 +25,9 @@ Here is, how the process is organised:
    :align: center
 
 
+.. raw:: html
 
+   <br><br>
 
 
 .. toctree::
