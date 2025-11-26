@@ -50,19 +50,22 @@ def metadata_dict_to_header_list(metadata_dict):
     header (list)
     """
     header =[]
-    basic_field_names=["format",  "sorted", "shape", "genome_assembly", "chromsize", "samheader"]
+    basic_field_names=["format",  "sorted", "shape", "genome_assembly", "chromosomes", "chromsize", "samheader"]
     for key in basic_field_names:
         lines=[]
-        values=metadata_dict[key]
-        if key == "chromsize": #chromsize: chr1 195471971
-            lines=["#"+key+": " +chr+" "+str(size) for chr, size in values.items()]
-        elif key == "samheader":
-            lines=["#"+key+": " +value for value in values]
-        elif key=="sorted" or key=="shape" or key=="genome_assembly":
-            lines=["#"+key+": " +values]
-        elif key=="format": 
-            lines=[values]
-        header.extend(lines)
+        if key in metadata_dict.keys():
+            values=metadata_dict[key]
+            if key == "chromsize": #chromsize: chr1 195471971
+                lines=["#"+key+": " +chr+" "+str(size) for chr, size in values.items()]
+            elif key == "samheader":
+                lines=["#"+key+": " +value for value in values]
+            elif key == "chromosomes":
+                lines=["#"+key+": "+" ".join(values)]
+            elif key=="sorted" or key=="shape" or key=="genome_assembly":
+                lines=["#"+key+": " +values]
+            elif key=="format": 
+                lines=[values]
+            header.extend(lines)
 
     # No more keys are expected, if there exists possibility of custom keys, please update
 

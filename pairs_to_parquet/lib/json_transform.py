@@ -23,7 +23,7 @@ def header_to_json_dict(header: str, field_names: list) -> dict:
     header_rest = header
     for field_name in field_names:
         fields, header_rest = headerops.extract_fields(header_rest, field_name, True)
-        if field_name == "columns":
+        if field_name == "columns" or field_name == "chromosomes":
             fields_in_type=fields[0].split()
         elif field_name == "chromsize":
             fields_in_type={k:int(v) for k,v in [i.split(' ') for i in fields]}

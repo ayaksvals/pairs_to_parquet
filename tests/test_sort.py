@@ -9,7 +9,7 @@ testdir = os.path.dirname(os.path.realpath(__file__)) # __file__ is a built-in v
 
 def test_mock_pairs():
     mock_pairs_path = os.path.join(testdir, "data", "mock.pairs")
-    mock_output_pairs_path = os.path.join(testdir, "data", "sorted_mock.pairs")
+    mock_output_pairs_path = os.path.join(testdir, "data/sort_results", "sorted_mock.pairs")
     try:
         result = subprocess.check_output(
             ["python", "-m", "pairs_to_parquet", "sort", "-o", mock_output_pairs_path, "--compress-program", "none", mock_pairs_path],
@@ -65,3 +65,25 @@ def test_mock_pairs():
                         assert int(cur_pair[3]) >= int(prev_pair[3])
 
         prev_pair = cur_pair
+
+
+
+
+
+
+def test_mock_pairs_parquet():
+    ######## Check later for parquet, right now used as creating sorted_mock.parquet:
+    
+    mock_pairs_path = os.path.join(testdir, "data", "mock.pairs")
+    mock_output_pairs_path = os.path.join(testdir, "data/sort_results", "sorted_mock.parquet")
+    try:
+        result = subprocess.check_output(
+            ["python", "-m", "pairs_to_parquet", "sort", "-o", mock_output_pairs_path, "--compress-program", "none", mock_pairs_path],
+        )
+    except subprocess.CalledProcessError as e:
+        print(e.output)
+        print(sys.exc_info())
+
+        raise e
+
+
